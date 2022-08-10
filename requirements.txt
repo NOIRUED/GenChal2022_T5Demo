@@ -1,0 +1,7 @@
+torch
+transformers
+numpy
+sentencepiece
+accelerate
+gensim
+nltk
