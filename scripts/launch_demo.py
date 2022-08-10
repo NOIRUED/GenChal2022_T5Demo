@@ -15,6 +15,6 @@ start_analyse = st.button("Analyse")
 
 if start_analyse:
     input_ids = t5_tokenizer(text, add_special_tokens=True, return_tensors="pt").input_ids.to(DEVICE)
-    outputs = t5_mlm.generate(input_ids=input_ids)
+    outputs = t5_mlm.generate(input_ids=input_ids, max_length=128)
     _txt = t5_tokenizer.decode(outputs, skip_special_tokens=True)
     st.text_area("", _txt)
