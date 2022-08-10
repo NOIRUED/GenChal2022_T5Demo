@@ -4,7 +4,7 @@ import torch
 
 st.title("Demo of python code")
 T5_PATH = "TMUUED/t5_fcg_2022"
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+DEVICE = torch.device('cpu')
 
 t5_tokenizer = AutoTokenizer.from_pretrained(T5_PATH, use_fast=False)
 t5_config = AutoConfig.from_pretrained(T5_PATH)
