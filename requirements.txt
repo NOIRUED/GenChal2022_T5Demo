@@ -6,3 +6,4 @@ accelerate
 gensim
 nltk
 streamlit
+word_forms
