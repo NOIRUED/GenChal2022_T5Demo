@@ -82,7 +82,7 @@ def postprocess(text, pre_text):
     return text
 
 
-st.title("Demo of the system proposed in GenChal2022")
+st.title("Demo of the System Submitted in GenChal2022")
 T5_PATH = "TMUUED/t5_fcg_2022"
 DEVICE = torch.device('cpu')
 
@@ -94,6 +94,10 @@ def load_model():
     return t5_tokenizer, t5_mlm
 
 pre_text = st.text_area('Text to Analyze', '''Input a text''')
+with st.beta_expander('Examples'):
+    start_analyse = st.button('I cannot agree [BOE]to[EOE] you in this situation.')
+    start_analyse = st.button('Sophia invests her money [BOE]on[EOE] the stock market.')
+    start_analyse = st.button('What do you see when [BOE]looking the[EOE] mirror?')
 start_analyse = st.button("Analyze")
 
 if start_analyse:
