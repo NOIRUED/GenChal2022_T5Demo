@@ -66,7 +66,7 @@ def postprocess(text, pre_text):
             if tok in pre_text:
                 continue 
             word_form = get_word_forms(tok)
-            word_forms = word_form['n'] + word_form['a'] + word_form['v'] + word_form['r']
+            word_forms = list(word_form['n']) + list(word_form['a']) + list(word_form['v']) + list(word_form['r'])
             tok_bool = False
             for word in word_forms:
                 if word in pre_text:
