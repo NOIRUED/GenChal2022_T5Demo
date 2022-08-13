@@ -51,6 +51,8 @@ def preprocess(text):
 
 def postprocess(text, pre_text):
     text = text.replace('*', '<')
+    pre_text = pre_text.replace("[BOE]", "")
+    pre_text = pre_text.replace("[EOE]", "")
     pre_text = pre_text.split(" ")
     gram_tokens = re.findall(r'<<(.*?)>>', text)
 
