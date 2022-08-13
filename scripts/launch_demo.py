@@ -106,11 +106,11 @@ start_analyse = st.button("Analyze")
 if start_analyse or example0 or example1 or example2:
     t5_tokenizer, t5_mlm = load_model()
     if example0:
-        pre_text = test_example[0]
+        pre_text = text_example[0]
     elif example1:
-        pre_text = test_example[1]
+        pre_text = text_example[1]
     elif example2:
-        pre_text = test_example[2]
+        pre_text = text_example[2]
     pre_text = preprocess(pre_text)
     text = "Generate a feedback comment: {}".format(pre_text) 
     input_ids = t5_tokenizer(text, add_special_tokens=True, return_tensors="pt").input_ids.to(DEVICE)
