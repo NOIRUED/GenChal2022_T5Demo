@@ -84,6 +84,8 @@ def postprocess(text, pre_text):
 
 
 st.title("Demo of the System Submitted in GenChal2022")
+st.write('This is the demo of the system submitted in GenChal 2022: Feedback Comment Generation for Writing Learning. System only supports a prepositional error and must be pointed out with special tokens ([BOE]prepositional error[EOE]).')
+st.write('Script of the demo: (https://github.com/NOIRUED/GenChal2022_T5Demo)')
 T5_PATH = "TMUUED/t5_fcg_2022"
 DEVICE = torch.device('cpu')
 
