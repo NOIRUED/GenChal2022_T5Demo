@@ -4,7 +4,7 @@ import torch
 import re
 from word_forms.word_forms import get_word_forms
 import nltk
-
+nltk.download('averaged_perceptron_tagger')
 
 @st.cache(suppress_st_warning=True)
 def pos_replace(tokens):
@@ -105,11 +105,10 @@ def load_model():
     return t5_tokenizer, t5_mlm
 
 pre_text = st.text_area('Text to Analyze', '''Input a text''')
-start_analyse = st.button("Analyse")
+start_analyse = st.button("Analyze")
 
 if start_analyse:
     t5_tokenizer, t5_mlm = load_model()
-    nltk.download('averaged_perceptron_tagger')
     pre_text = preprocess(pre_text)
     text = "Generate a feedback comment: {}".format(pre_text) 
     input_ids = t5_tokenizer(text, add_special_tokens=True, return_tensors="pt").input_ids.to(DEVICE)
