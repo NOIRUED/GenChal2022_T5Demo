@@ -100,6 +100,7 @@ if start_analyse:
     t5_tokenizer, t5_mlm = load_model()
     pre_text = preprocess(pre_text)
     text = "Generate a feedback comment: {}".format(pre_text) 
+    st.text_area("Preprocessed", test)
     input_ids = t5_tokenizer(text, add_special_tokens=True, return_tensors="pt").input_ids.to(DEVICE)
     outputs = t5_mlm.generate(input_ids=input_ids, max_length=1024)
     _txt = t5_tokenizer.decode(outputs[0], skip_special_tokens=True)
