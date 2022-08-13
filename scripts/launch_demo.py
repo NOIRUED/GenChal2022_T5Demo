@@ -23,6 +23,7 @@ def pos_replace(tokens):
         tokens[i] = tuple(tokens[i])
     return tokens
 
+@st.cache(suppress_st_warning=True)
 def preprocess(text):
     text_pos = text.replace("[BOE]", "")
     text_pos = text_pos.replace("[EOE]", "")
@@ -47,6 +48,7 @@ def preprocess(text):
     text = text + " POS_information: " + text_pos
     return text
 
+@st.cache(suppress_st_warning=True)
 def postprocess(text, pre_text):
     text = text.replace('*', '<')
     pre_text = pre_text.split(" ")
@@ -101,16 +103,11 @@ pre_text = st.text_area('Text to Analyze', '''Input a text''')
 start_analyse = st.button("Analyse")
 
 if start_analyse:
-    st.text_area("Starting Analyse...", pre_text)
     nltk.download('averaged_perceptron_tagger')
-    st.text_area("Downloaded", pre_text)
     pre_text = preprocess(pre_text)
-    st.text_area("Finished_preprocess", pre_text)
     text = "Generate a feedback comment: {}".format(pre_text) 
     input_ids = t5_tokenizer(text, add_special_tokens=True, return_tensors="pt").input_ids.to(DEVICE)
     outputs = t5_mlm.generate(input_ids=input_ids, max_length=1024)
     _txt = t5_tokenizer.decode(outputs[0], skip_special_tokens=True)
-    print("Finished decoding")
     _txt = postprocess(_txt, pre_text)
-    st.text_area("Finished_postprocess", pre_text)
     st.text_area("Output", _txt)
