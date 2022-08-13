@@ -78,7 +78,7 @@ def postprocess(text, pre_text):
                 continue
             if tok.lower() in pre_text:
                 continue
-            #text = "<NO_COMMENT>"
+            text = "<NO_COMMENT>"
             break
     return text
 
