@@ -97,6 +97,7 @@ st.title("Demo of the system proposed in GenChal2022")
 T5_PATH = "TMUUED/t5_fcg_2022"
 DEVICE = torch.device('cpu')
 
+@st.cache(allow_output_mutation=True)
 def load_model():
     t5_tokenizer = AutoTokenizer.from_pretrained(T5_PATH, use_fast=False)
     t5_config = AutoConfig.from_pretrained(T5_PATH)
