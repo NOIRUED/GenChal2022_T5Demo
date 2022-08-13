@@ -93,15 +93,24 @@ def load_model():
     t5_mlm = T5ForConditionalGeneration.from_pretrained(T5_PATH, config=t5_config).to(DEVICE)
     return t5_tokenizer, t5_mlm
 
+text_example = ['I cannot agree [BOE]to[EOE] you in this situation.', 
+                'Sophia invests her money [BOE]on[EOE] the stock market.', 
+                'What do you see when [BOE]looking the[EOE] mirror?']
 pre_text = st.text_area('Text to Analyze', '''Input a text''')
-with st.expander('Examples'):
-    start_analyse = st.button('I cannot agree [BOE]to[EOE] you in this situation.')
-    start_analyse = st.button('Sophia invests her money [BOE]on[EOE] the stock market.')
-    start_analyse = st.button('What do you see when [BOE]looking the[EOE] mirror?')
+with st.expander('Examples', expanded=True):
+    example0 = st.button('I cannot agree [BOE]to[EOE] you in this situation.')
+    example1 = st.button('Sophia invests her money [BOE]on[EOE] the stock market.')
+    example2 = st.button('What do you see when [BOE]looking the[EOE] mirror?')
 start_analyse = st.button("Analyze")
 
-if start_analyse:
+if start_analyse or example0 or example1 or example2:
     t5_tokenizer, t5_mlm = load_model()
+    if example0:
+        pre_text = test_example[0]
+    elif example1:
+        pre_text = test_example[1]
+    elif example2:
+        pre_text = test_example[2]
     pre_text = preprocess(pre_text)
     text = "Generate a feedback comment: {}".format(pre_text) 
     input_ids = t5_tokenizer(text, add_special_tokens=True, return_tensors="pt").input_ids.to(DEVICE)
@@ -109,3 +118,4 @@ if start_analyse:
     _txt = t5_tokenizer.decode(outputs[0], skip_special_tokens=True)
     _txt = postprocess(_txt, pre_text)
     st.text_area("Output", _txt)
+    
