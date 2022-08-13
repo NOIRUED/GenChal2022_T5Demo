@@ -78,17 +78,7 @@ def postprocess(text, pre_text):
                 continue
             if tok.lower() in pre_text:
                 continue
-            '''
-            #We omit this function in streamlit dues to the lack of memory resource
-            for b in words_text:
-                calc = model.most_similar(positive=[tok], topn=10)
-            
-            for c in calc:
-                if c[0] in words_text:
-                    pred = pred.replace("<<"+tok+">>", "<<"+c[0]+">>")
-                    tok_bool = True
-                    break
-            '''
+            print(text)
             text = "<NO_COMMENT>"
             break
     return text
