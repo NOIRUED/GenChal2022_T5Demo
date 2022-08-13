@@ -7,7 +7,6 @@ import nltk
 nltk.download('averaged_perceptron_tagger')
 nltk.download('omw-1.4')
 
-@st.cache(suppress_st_warning=True)
 def pos_replace(tokens):
     for i in range(len(tokens)):
         tokens[i] = list(tokens[i])
@@ -26,7 +25,6 @@ def pos_replace(tokens):
         tokens[i] = tuple(tokens[i])
     return tokens
 
-@st.cache(suppress_st_warning=True)
 def preprocess(text):
     text_pos = text.replace("[BOE]", "")
     text_pos = text_pos.replace("[EOE]", "")
@@ -51,7 +49,6 @@ def preprocess(text):
     text = text + " POS_information: " + text_pos
     return text
 
-@st.cache(suppress_st_warning=True)
 def postprocess(text, pre_text):
     text = text.replace('*', '<')
     pre_text = pre_text.split(" ")
