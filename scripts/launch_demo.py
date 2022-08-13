@@ -89,7 +89,7 @@ def postprocess(text, pre_text):
                     tok_bool = True
                     break
             '''
-            text = "<NO_COMMENT>"
+            #text = "<NO_COMMENT>"
             break
     return text
 
