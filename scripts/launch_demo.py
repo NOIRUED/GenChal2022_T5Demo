@@ -5,6 +5,7 @@ import re
 from word_forms.word_forms import get_word_forms
 import nltk
 nltk.download('averaged_perceptron_tagger')
+nltk.download('omw-1.4')
 
 @st.cache(suppress_st_warning=True)
 def pos_replace(tokens):
