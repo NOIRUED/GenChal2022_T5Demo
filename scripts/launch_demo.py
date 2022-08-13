@@ -100,14 +100,15 @@ def download_nltk():
     nltk.download('averaged_perceptron_tagger')
     nltk.download('omw-1.4')
 
-text_example = ['I cannot agree [BOE]to[EOE] you in this situation.', 
-                'Sophia invests her money [BOE]on[EOE] the stock market.', 
-                'What do you see when [BOE]looking the[EOE] mirror?']
+text_example = ['I cannot [BOE]agree you[EOE] in this case.',
+                'He could not go to the show because [BOE]of[EOE] he had a fever yesterday.', 
+                'She spends her money [BOE]with[EOE] clothes.', 
+                ]
 pre_text = st.text_area('Text to Analyze', '''Input a text''')
 with st.expander('Examples', expanded=True):
-    example0 = st.button('I cannot agree [BOE]to[EOE] you in this situation.')
-    example1 = st.button('Sophia invests her money [BOE]on[EOE] the stock market.')
-    example2 = st.button('What do you see when [BOE]looking the[EOE] mirror?')
+    example0 = st.button('I cannot [BOE]agree you[EOE] in this case.')
+    example1 = st.button('He could not go to the show because [BOE]of[EOE] he had a fever yesterday.')
+    example2 = st.button('She spends her money [BOE]with[EOE] clothes.')
 start_analyse = st.button("Analyze")
 
 if start_analyse or example0 or example1 or example2:
