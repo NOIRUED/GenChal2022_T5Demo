@@ -94,7 +94,7 @@ def load_model():
     return t5_tokenizer, t5_mlm
 
 pre_text = st.text_area('Text to Analyze', '''Input a text''')
-with st.beta_expander('Examples'):
+with st.expander('Examples'):
     start_analyse = st.button('I cannot agree [BOE]to[EOE] you in this situation.')
     start_analyse = st.button('Sophia invests her money [BOE]on[EOE] the stock market.')
     start_analyse = st.button('What do you see when [BOE]looking the[EOE] mirror?')
