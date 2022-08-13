@@ -5,6 +5,8 @@ import re
 from word_forms.word_forms import get_word_forms
 import nltk
 
+
+@st.cache(suppress_st_warning=True)
 def pos_replace(tokens):
     for i in range(len(tokens)):
         tokens[i] = list(tokens[i])
@@ -95,16 +97,19 @@ st.title("Demo of the system proposed in GenChal2022")
 T5_PATH = "TMUUED/t5_fcg_2022"
 DEVICE = torch.device('cpu')
 
-t5_tokenizer = AutoTokenizer.from_pretrained(T5_PATH, use_fast=False)
-t5_config = AutoConfig.from_pretrained(T5_PATH)
-t5_mlm = T5ForConditionalGeneration.from_pretrained(T5_PATH, config=t5_config).to(DEVICE)
+def load_model():
+    t5_tokenizer = AutoTokenizer.from_pretrained(T5_PATH, use_fast=False)
+    t5_config = AutoConfig.from_pretrained(T5_PATH)
+    t5_mlm = T5ForConditionalGeneration.from_pretrained(T5_PATH, config=t5_config).to(DEVICE)
+    return t5_tokenizer, t5_mlm
 
 pre_text = st.text_area('Text to Analyze', '''Input a text''')
 start_analyse = st.button("Analyse")
 
 if start_analyse:
-    #nltk.download('averaged_perceptron_tagger')
-    #pre_text = preprocess(pre_text)
+    t5_tokenizer, t5_mlm = load_model()
+    nltk.download('averaged_perceptron_tagger')
+    pre_text = preprocess(pre_text)
     text = "Generate a feedback comment: {}".format(pre_text) 
     input_ids = t5_tokenizer(text, add_special_tokens=True, return_tensors="pt").input_ids.to(DEVICE)
     outputs = t5_mlm.generate(input_ids=input_ids, max_length=1024)
