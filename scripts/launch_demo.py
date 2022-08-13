@@ -4,9 +4,8 @@ import torch
 import re
 from word_forms.word_forms import get_word_forms
 import nltk
-nltk.download('averaged_perceptron_tagger')
-nltk.download('omw-1.4')
 
+@st.cache(suppress_st_warning=True)
 def pos_replace(tokens):
     for i in range(len(tokens)):
         tokens[i] = list(tokens[i])
@@ -25,6 +24,7 @@ def pos_replace(tokens):
         tokens[i] = tuple(tokens[i])
     return tokens
 
+@st.cache(suppress_st_warning=True)
 def preprocess(text):
     text_pos = text.replace("[BOE]", "")
     text_pos = text_pos.replace("[EOE]", "")
@@ -49,6 +49,7 @@ def preprocess(text):
     text = text + " POS_information: " + text_pos
     return text
 
+@st.cache(suppress_st_warning=True)
 def postprocess(text, pre_text):
     text = text.replace('*', '<')
     pre_text = pre_text.replace("[BOE]", "")
@@ -93,6 +94,12 @@ def load_model():
     t5_mlm = T5ForConditionalGeneration.from_pretrained(T5_PATH, config=t5_config).to(DEVICE)
     return t5_tokenizer, t5_mlm
 
+
+@st.cache(suppress_st_warning=True)
+def download_nltk():
+    nltk.download('averaged_perceptron_tagger')
+    nltk.download('omw-1.4')
+
 text_example = ['I cannot agree [BOE]to[EOE] you in this situation.', 
                 'Sophia invests her money [BOE]on[EOE] the stock market.', 
                 'What do you see when [BOE]looking the[EOE] mirror?']
@@ -105,6 +112,7 @@ start_analyse = st.button("Analyze")
 
 if start_analyse or example0 or example1 or example2:
     t5_tokenizer, t5_mlm = load_model()
+    download_nltk()
     if example0:
         pre_text = text_example[0]
     elif example1:
